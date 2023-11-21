@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
         integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js" integrity="sha512-dUlSLLkxslGILhPdCkALwk4szPhp3xmZIKFtlUD+O9Lslq41Aksmdt5OGqpomDoT4FsCUH70jQU8ezZHI3v1RQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -31,7 +32,7 @@
             <div id="mainRow" class="row">
                 <!-- sezione laterale contatti -->
                 <div id="side" class="col-4 overflow-auto">
-                    <div class="contact" v-for="(element, i) in contacts">
+                    <div @click="switchContact(i)" class="contact" v-for="(element, i) in contacts">
                         <p>{{contacts[i].name}}</p>
                         <p>ultimo messaggio inviato</p>
                         <p>{{contacts[i].messages[1].date}}</p>
@@ -41,10 +42,11 @@
                 </div>
 
                 <!-- main section -->
-                <div id="main" class="col-8 d-flex flex-column">
-                    <div class="mex" :class="(contacts[0].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'"
-                        v-for="(element, i) in contacts[0].messages">
-                        {{contacts[0].messages[i].message}}</div>
+                <div id="main" class="col-8 d-flex flex-column gap-3">
+                    <div class="mex rounded d-flex align-items-center px-2" :class="(contacts[posizioneOggetto].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'" v-for="(element, i) in contacts[posizioneOggetto].messages">
+                        <p>{{contacts[posizioneOggetto].messages[i].message}}</p>
+                        <div>{{contacts[posizioneOggetto].messages[i].date}}</div>
+                    </div>
                 </div>
 
             </div>

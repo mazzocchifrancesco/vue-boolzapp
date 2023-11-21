@@ -168,14 +168,14 @@ const object = {
                     ],
                 }
             ],
+            posizioneOggetto: 0,
             
         }
     },
     methods: {
-        arrayLength (lung) {
-            lung=array.length;
-            return lung;
-        }
+        switchContact(index) {
+            this.posizioneOggetto=index;
+        },
     }
 };
 

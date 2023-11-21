@@ -1,4 +1,5 @@
 /* contenitore */
+p {margin: 0;}
 #app {
     display: flex;
     margin-top: 5vh;
@@ -36,15 +37,15 @@
     padding: 4rem 6rem;
 
 }
-.mexSent {
+.mexRecived {
     background-color: gainsboro;
 
 }
-.mexRecived {
+.mexSent {
     background-color: greenyellow;
     align-self: end;
 }
 .mex {
-    height: 2rem;
+    height: 3.5rem;
     width: 18rem;
 }
