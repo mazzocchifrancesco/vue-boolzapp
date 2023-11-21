@@ -17,14 +17,20 @@
     <div id="app">
 
         <div class="container finestra">
+            <!-- header app -->
             <div id="headRow" class="row">
                 <div class="col-4"></div>
                 <div class="col-8"></div>
 
             </div>
-
+            <!-- sezione principale app -->
             <div id="mainRow" class="row">
-                <div id="side" class="col-4"></div>
+                <!-- sezione laterale contatti -->
+                <div id="side" class="col-4">
+                    <div v-for="(element, i) in contacts">{{contacts[i].name}}</div>
+                </div>
+
+                <!-- main section -->
                 <div id="main" class="col-8"></div>
 
             </div>
