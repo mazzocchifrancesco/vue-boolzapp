@@ -1,0 +1,32 @@
+/* contenitore */
+#app {
+    display: flex;
+    margin-top: 5vh;
+}
+.finestra {
+    background-color: bisque;
+    height: 90vh;
+
+}
+#mainRow {
+    height: 100%;
+
+}
+/* header app */
+#headRow > div {
+    background-color: gainsboro;
+    height: 4rem;
+    border: 1px solid lightgrey;
+}
+/* sezione chat */
+#side {
+    background-color: aquamarine;
+    height: 100%;
+}
+
+/* main section */
+#main {
+    background-color: greenyellow;
+    height: 100%;
+
+}
