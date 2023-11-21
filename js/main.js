@@ -167,10 +167,16 @@ const object = {
                         }
                     ],
                 }
-            ]
+            ],
             
         }
     },
+    methods: {
+        arrayLength (lung) {
+            lung=array.length;
+            return lung;
+        }
+    }
 };
 
 createApp(object).mount('#app')

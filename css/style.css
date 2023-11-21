@@ -5,7 +5,7 @@
 }
 .finestra {
     background-color: bisque;
-    height: 90vh;
+    height: 80vh;
 
 }
 #mainRow {
@@ -23,10 +23,28 @@
     background-color: aquamarine;
     height: 100%;
 }
+.contact {
+    height: 6rem;
+    background-color: azure;
+    border: 1px solid black;
+}
 
 /* main section */
 #main {
-    background-color: greenyellow;
+    background-color: lightpink;
     height: 100%;
+    padding: 4rem 6rem;
 
+}
+.mexSent {
+    background-color: gainsboro;
+
+}
+.mexRecived {
+    background-color: greenyellow;
+    align-self: end;
+}
+.mex {
+    height: 2rem;
+    width: 18rem;
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
+        integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+
 <body>
     <div id="app">
 
@@ -26,12 +30,22 @@
             <!-- sezione principale app -->
             <div id="mainRow" class="row">
                 <!-- sezione laterale contatti -->
-                <div id="side" class="col-4">
-                    <div v-for="(element, i) in contacts">{{contacts[i].name}}</div>
+                <div id="side" class="col-4 overflow-auto">
+                    <div class="contact" v-for="(element, i) in contacts">
+                        <p>{{contacts[i].name}}</p>
+                        <p>ultimo messaggio inviato</p>
+                        <p>{{contacts[i].messages[1].date}}</p>
+
+
+                    </div>
                 </div>
 
                 <!-- main section -->
-                <div id="main" class="col-8"></div>
+                <div id="main" class="col-8 d-flex flex-column">
+                    <div class="mex" :class="(contacts[0].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'"
+                        v-for="(element, i) in contacts[0].messages">
+                        {{contacts[0].messages[i].message}}</div>
+                </div>
 
             </div>
         </div>
@@ -40,4 +54,5 @@
 
     <script src="js/main.js"></script>
 </body>
+
 </html>
