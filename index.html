@@ -22,32 +22,95 @@
     <div id="app">
 
         <div class="container finestra">
+
             <!-- header app -->
             <div id="headRow" class="row">
-                <div class="col-4"></div>
-                <div class="col-8"></div>
+                <div class="col-4 d-flex align-items-center">
+
+                    <!-- prifile pic + name -->
+                    <img src="img/avatar_io.jpg" alt="" class="rounded-circle contactImg">
+                    <div class="fw-semibold">Sofia</div>
+                </div>
+
+                <!-- header selected chat -->
+                <div class="col-8">
+                    <div class="selectedContact d-flex align-items-center">
+                        <img :src=contacts[posizioneOggetto].avatar alt="" class="rounded-circle contactImg">
+                        <div>
+                            <p>{{contacts[posizioneOggetto].name}}</p>
+                            <p>ultimo messaggio inviato</p>
+                        </div>
+                        <p class="data p-2">{{contacts[posizioneOggetto].messages[1].date}}</p>
+                    </div>
+                </div>
 
             </div>
-            <!-- sezione principale app -->
+
+            <!---------------------------------- sezione principale app ------------------------------------->
             <div id="mainRow" class="row">
-                <!-- sezione laterale contatti -->
-                <div id="side" class="col-4 overflow-auto">
-                    <div @click="switchContact(i)" class="contact" v-for="(element, i) in contacts">
-                        <p>{{contacts[i].name}}</p>
-                        <p>ultimo messaggio inviato</p>
-                        <p>{{contacts[i].messages[1].date}}</p>
+
+                <!----------------- sezione laterale contatti ------------->
+                <div id="side" class="col-4">
+
+                    <!-- disable notification -->
+                    <div id="silentNotif" class="d-flex">
+                        <div id="silentIcon" class="rounded-circle align-items-center justify-content-center d-flex">
+                            <i class="fa-solid fa-bell-slash"></i>
+                        </div>
+                        <div class="ms-3">
+                            <p class="fw-bold">Ricevi notifiche di nuovi messaggi</p>
+                            <a href="" class="fw-light text-black">attiva notifiche desktop</a>
+                        </div>
+                    </div>
+
+                    <!-- searchbar -->
+                    <div id="searchBar" class="input-group">
+                        <span id="inputGroupText" class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Cerca o inizia una nuova chat">
+                          <label for="floatingInputGroup1">Cerca o inizia una nuova chat</label>
+                        </div>
+                      </div>
+
+                    <!-- SIDE chat container -->
+                    <div id="chatContainer" class="overflow-auto">
+
+                        <div @click="switchContact(i)" class="contact d-flex" v-for="(element, i) in contacts" :class="(posizioneOggetto==i) ? 'selected' : ''">
+                            <img :src=contacts[i].avatar alt="" class="rounded-circle contactImg">
+                            <div>
+                                <p class="fw-bold">{{contacts[i].name}}</p>
+                                <p class="fw-light">{{contacts[i].messages[0].message}}</p>
+                            </div>
+                            <p class="data p-2">{{contacts[i].messages[1].date}}</p>
+                        </div>
 
 
                     </div>
                 </div>
 
                 <!-- main section -->
-                <div id="main" class="col-8 d-flex flex-column gap-3">
-                    <div class="mex rounded d-flex align-items-center px-2" :class="(contacts[posizioneOggetto].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'" v-for="(element, i) in contacts[posizioneOggetto].messages">
-                        <p>{{contacts[posizioneOggetto].messages[i].message}}</p>
-                        <div>{{contacts[posizioneOggetto].messages[i].date}}</div>
+                <div id="main" class="col-8 d-flex flex-column justify-content-between">
+                    <div id="chatBox" class="d-flex flex-column gap-3">
+                        <div class="mex rounded d-flex align-items-center justify-content-between px-2 py-2" :class="(contacts[posizioneOggetto].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'" v-for="(element, i) in contacts[posizioneOggetto].messages">
+                            <p>{{contacts[posizioneOggetto].messages[i].message}}</p>
+                            <div class="data">{{contacts[posizioneOggetto].messages[i].date.toLocaleString()}}</div>
+                        </div>
                     </div>
+                    <!-- input chat -->
+                    <div id="inputBox" class="d-flex p-2">
+                        <div class="iconBox"><i class="fa-xl fa-regular fa-face-smile"></i></div>
+
+                        <div class="form-floating w-100">
+                            <input @keyup.enter="newMessage(posizioneOggetto)" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Scrivi un messaggio</label>
+                        </div>
+
+                        <div class="iconBox"><i class="fa-xl fa-solid fa-microphone"></i></div>
+                    </div>
+
                 </div>
+
+                
 
             </div>
         </div>

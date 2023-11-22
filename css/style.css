@@ -1,3 +1,9 @@
+:root{
+    --silentHeight: 5rem;
+    --headerHeight:5rem;
+    --appHeight:90vh;
+}
+
 /* contenitore */
 p {margin: 0;}
 #app {
@@ -5,47 +11,102 @@ p {margin: 0;}
     margin-top: 5vh;
 }
 .finestra {
-    background-color: bisque;
-    height: 80vh;
-
+    height: var(--appHeight);
 }
 #mainRow {
-    height: 100%;
-
+    height: calc(100% - var(--headerHeight));
 }
 /* header app */
 #headRow > div {
-    background-color: gainsboro;
-    height: 4rem;
-    border: 1px solid lightgrey;
+    background-color: #eaeaea;
+    height: var(--headerHeight);
+    border: 0.5px solid lightgrey;
 }
-/* sezione chat */
+.selectedContact {
+    height: 100%;
+}
+
+/* sezione chat contatti */
 #side {
     background-color: aquamarine;
     height: 100%;
+    padding: 0;
+}
+#silentNotif {
+    background-color: #8edafc;
+    padding: 1rem;
+    height: var(--silentHeight);
+
+}
+.fa-bell-slash {
+    font-size: 1.5rem;
+    color: #8edafc;
+}
+#silentIcon {
+    background-color: white;
+    aspect-ratio: 1;
+    height: 3rem;
+}
+/* SEARCHBAR */
+#searchBar {
+}
+/* id per searchbar bootstrap */
+#floatingInputGroup1 , #inputGroupText {
+    border-radius: 0!important;
+}
+
+#chatContainer {
+    height: calc( var(--appHeight) - var(--headerHeight) - var(--silentHeight) - 58px );
 }
 .contact {
-    height: 6rem;
-    background-color: azure;
-    border: 1px solid black;
+    height: 5rem;
+    background-color: #ffffff;
+    border: 0.5px solid #f7f7f7;
+}
+.data {
+    font-size: 0.5rem;
+    text-align: right;
+}
+.contactImg {
+    height: 80%;
+    aspect-ratio: 1;
+    margin: auto 1rem;
+}
+.selected {
+    background-color: #e9ebeb;
 }
 
-/* main section */
-#main {
-    background-color: lightpink;
-    height: 100%;
-    padding: 4rem 6rem;
 
+/****************************** main section ***********************/
+#main {
+    height: 100%;
+    padding: 0!important;
+    background-image: url(../img/mine.jpg);
+
+}
+#chatBox {
+    padding: 4rem 4rem;
 }
 .mexRecived {
-    background-color: gainsboro;
+    background-color: #ffffff;
 
 }
 .mexSent {
-    background-color: greenyellow;
+    background-color: #d5f9ba;
     align-self: end;
 }
 .mex {
-    height: 3.5rem;
-    width: 18rem;
+    width: 16rem;
+}
+
+/* input */
+.iconBox {
+    width: 20%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#inputBox {
+    background-color: #f3eeea;
 }
