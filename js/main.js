@@ -169,37 +169,50 @@ const object = {
                 }
             ],
             posizioneOggetto: 0,
-            
+
         }
     },
     methods: {
         switchContact(index) {
-            this.posizioneOggetto=index;
+            this.posizioneOggetto = index;
         },
         newMessage(index) {
-            const text=document.getElementById("floatingInput").value;
+            const text = document.getElementById("floatingInput").value;
             console.log(text);
-            const message= {
+            const message = {
                 date: '10/01/2020 15:30:55',
                 message: text,
                 status: 'sent'
             };
             this.contacts[index].messages.push(message);
-            document.getElementById("floatingInput").value="";
+            document.getElementById("floatingInput").value = "";
 
             // timer
-            const newTimer=setTimeout(() => {
+            const newTimer = setTimeout(() => {
                 this.replyMessage("ok", index);
             }, 1000);
         },
         replyMessage(text, index) {
-            const repMessage= {
+            const repMessage = {
                 date: '10/01/2020 15:30:55',
                 message: text,
                 status: 'recived'
             };
             this.contacts[index].messages.push(repMessage);
 
+        },
+        searchChat() {
+            for (let i = 0; i < this.contacts.length; i++) {
+                const input=document.getElementById("floatingInputGroup1").value;
+                if(this.contacts[i].name.includes(input)) {
+                    this.contacts[i].visible=true;
+                }
+                else {
+                    this.contacts[i].visible=false;
+
+                }
+                
+            }
         }
     },
     mounted() {

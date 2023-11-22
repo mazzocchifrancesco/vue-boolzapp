@@ -15,7 +15,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"
         integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js" integrity="sha512-dUlSLLkxslGILhPdCkALwk4szPhp3xmZIKFtlUD+O9Lslq41Aksmdt5OGqpomDoT4FsCUH70jQU8ezZHI3v1RQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.4.4/luxon.min.js"
+        integrity="sha512-dUlSLLkxslGILhPdCkALwk4szPhp3xmZIKFtlUD+O9Lslq41Aksmdt5OGqpomDoT4FsCUH70jQU8ezZHI3v1RQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -65,23 +67,27 @@
 
                     <!-- searchbar -->
                     <div id="searchBar" class="input-group">
-                        <span id="inputGroupText" class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <span id="inputGroupText" class="input-group-text"><i
+                                class="fa-solid fa-magnifying-glass"></i></span>
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Cerca o inizia una nuova chat">
-                          <label for="floatingInputGroup1">Cerca o inizia una nuova chat</label>
+                            <input type="text" class="form-control" id="floatingInputGroup1"
+                                placeholder="Cerca o inizia una nuova chat" @keyup.enter="searchChat()">
+                            <label for="floatingInputGroup1">Cerca o inizia una nuova chat</label>
                         </div>
-                      </div>
+                    </div>
 
                     <!-- SIDE chat container -->
                     <div id="chatContainer" class="overflow-auto">
 
-                        <div @click="switchContact(i)" class="contact d-flex" v-for="(element, i) in contacts" :class="(posizioneOggetto==i) ? 'selected' : ''">
+                        <div @click="switchContact(i)" v-for="(element, i) in contacts">
+                            <div v-if="contacts[i].visible" class="contact d-flex" :class="(posizioneOggetto==i) ? 'selected' : ''">
                             <img :src=contacts[i].avatar alt="" class="rounded-circle contactImg">
                             <div>
                                 <p class="fw-bold">{{contacts[i].name}}</p>
                                 <p class="fw-light">{{contacts[i].messages[0].message}}</p>
                             </div>
                             <p class="data p-2">{{contacts[i].messages[1].date}}</p>
+                        </div>
                         </div>
 
 
@@ -91,7 +97,9 @@
                 <!-- main section -->
                 <div id="main" class="col-8 d-flex flex-column justify-content-between">
                     <div id="chatBox" class="d-flex flex-column gap-3">
-                        <div class="mex rounded d-flex align-items-center justify-content-between px-2 py-2" :class="(contacts[posizioneOggetto].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'" v-for="(element, i) in contacts[posizioneOggetto].messages">
+                        <div class="mex rounded d-flex align-items-center justify-content-between px-2 py-2"
+                            :class="(contacts[posizioneOggetto].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'"
+                            v-for="(element, i) in contacts[posizioneOggetto].messages">
                             <p>{{contacts[posizioneOggetto].messages[i].message}}</p>
                             <div class="data">{{contacts[posizioneOggetto].messages[i].date.toLocaleString()}}</div>
                         </div>
@@ -101,7 +109,8 @@
                         <div class="iconBox"><i class="fa-xl fa-regular fa-face-smile"></i></div>
 
                         <div class="form-floating w-100">
-                            <input @keyup.enter="newMessage(posizioneOggetto)" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input @keyup.enter="newMessage(posizioneOggetto)" type="email" class="form-control"
+                                id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Scrivi un messaggio</label>
                         </div>
 
@@ -110,7 +119,7 @@
 
                 </div>
 
-                
+
 
             </div>
         </div>
