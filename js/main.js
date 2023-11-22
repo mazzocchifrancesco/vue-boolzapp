@@ -200,6 +200,7 @@ const object = {
                 status: 'recived'
             };
             this.contacts[index].messages.push(repMessage);
+            this.getLastMex()
 
         },
         searchChat() {
@@ -216,17 +217,20 @@ const object = {
         deleteMessage(index, posizioneOggetto) {
             this.contacts[posizioneOggetto].messages.splice(index, 1);
         },
-
+        getLastMex() {
+            this.lastMex=[]
+            for (let i = 0; i < this.contacts.length; i++) {
+                const lunghezza=this.contacts[i].messages.length-1;
+                this.contacts[i].indexLastMex=lunghezza;
+                console.log(this.contacts[i].indexLastMex);
+                
+                this.lastMex.push(this.contacts[i].messages[lunghezza].message);
+                console.log(this.lastMex);
+            }
+        }
     },
     mounted() {
-        for (let i = 0; i < this.contacts.length; i++) {
-            const lunghezza=this.contacts[i].messages.length-1;
-            this.contacts[i].indexLastMex=lunghezza;
-            console.log(this.contacts[i].indexLastMex);
-            
-            this.lastMex.push(this.contacts[i].messages[lunghezza].message);
-            console.log(this.lastMex);
-        }
+        this.getLastMex() 
         
     },
  
