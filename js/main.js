@@ -203,8 +203,8 @@ const object = {
         },
         searchChat() {
             for (let i = 0; i < this.contacts.length; i++) {
-                const input=document.getElementById("floatingInputGroup1").value;
-                if(this.contacts[i].name.includes(input)) {
+                const input=document.getElementById("floatingInputGroup1").value.toLowerCase();
+                if(this.contacts[i].name.toLowerCase().includes(input)) {
                     this.contacts[i].visible=true;
                 }
                 else {
