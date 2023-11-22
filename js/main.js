@@ -185,7 +185,22 @@ const object = {
                 status: 'sent'
             };
             this.contacts[index].messages.push(message);
+            document.getElementById("floatingInput").value="";
+
+            // timer
+            const newTimer=setTimeout(() => {
+                this.replyMessage("ok", index);
+            }, 1000);
         },
+        replyMessage(text, index) {
+            const repMessage= {
+                date: '10/01/2020 15:30:55',
+                message: text,
+                status: 'recived'
+            };
+            this.contacts[index].messages.push(repMessage);
+
+        }
     },
     mounted() {
 
