@@ -170,6 +170,8 @@ const object = {
             ],
             posizioneOggetto: 0,
             lastMex: [],
+            lastData: [],
+
 
         }
     },
@@ -200,7 +202,7 @@ const object = {
                 status: 'recived'
             };
             this.contacts[index].messages.push(repMessage);
-            this.getLastMex()
+            this.getLastMexAndData();
 
         },
         searchChat() {
@@ -217,20 +219,23 @@ const object = {
         deleteMessage(index, posizioneOggetto) {
             this.contacts[posizioneOggetto].messages.splice(index, 1);
         },
-        getLastMex() {
+        getLastMexAndData() {
             this.lastMex=[]
+            this.lastData=[]
+
             for (let i = 0; i < this.contacts.length; i++) {
                 const lunghezza=this.contacts[i].messages.length-1;
+
                 this.contacts[i].indexLastMex=lunghezza;
                 console.log(this.contacts[i].indexLastMex);
                 
                 this.lastMex.push(this.contacts[i].messages[lunghezza].message);
-                console.log(this.lastMex);
+                this.lastData.push(this.contacts[i].messages[lunghezza].date);
             }
         }
     },
     mounted() {
-        this.getLastMex() 
+        this.getLastMexAndData() 
         
     },
  
