@@ -80,14 +80,15 @@
                     <div id="chatContainer" class="overflow-auto">
 
                         <div @click="switchContact(i)" v-for="(element, i) in contacts">
-                            <div v-if="contacts[i].visible" class="contact d-flex" :class="(posizioneOggetto==i) ? 'selected' : ''">
-                            <img :src=contacts[i].avatar alt="" class="rounded-circle contactImg">
-                            <div>
-                                <p class="fw-bold">{{contacts[i].name}}</p>
-                                <p class="fw-light">{{contacts[i].messages[0].message}}</p>
+                            <div v-if="contacts[i].visible" class="contact d-flex"
+                                :class="(posizioneOggetto==i) ? 'selected' : ''">
+                                <img :src=contacts[i].avatar alt="" class="rounded-circle contactImg">
+                                <div>
+                                    <p class="fw-bold">{{contacts[i].name}}</p>
+                                    <p class="fw-light">{{contacts[i].messages[0].message}}</p>
+                                </div>
+                                <p class="data p-2">{{contacts[i].messages[1].date}}</p>
                             </div>
-                            <p class="data p-2">{{contacts[i].messages[1].date}}</p>
-                        </div>
                         </div>
 
 
@@ -96,12 +97,23 @@
 
                 <!-- main section -->
                 <div id="main" class="col-8 d-flex flex-column justify-content-between">
-                    <div id="chatBox" class="d-flex flex-column gap-3">
+                    <div id="chatBox" class="d-flex flex-column gap-3 overflow-auto">
                         <div class="mex rounded d-flex align-items-center justify-content-between px-2 py-2"
                             :class="(contacts[posizioneOggetto].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'"
                             v-for="(element, i) in contacts[posizioneOggetto].messages">
                             <p>{{contacts[posizioneOggetto].messages[i].message}}</p>
-                            <div class="data">{{contacts[posizioneOggetto].messages[i].date.toLocaleString()}}</div>
+                            <div class="data">{{contacts[posizioneOggetto].messages[i].date}}</div>
+
+                            <!-- DROPDOWN -->
+                            <div class="dropdown">
+                                <button class="btn" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-chevron-down fa-2xs"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#" @click="deleteMessage(i, posizioneOggetto)">Delete message</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <!-- input chat -->
@@ -125,7 +137,7 @@
         </div>
 
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
 </body>
 

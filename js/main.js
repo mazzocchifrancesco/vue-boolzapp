@@ -209,10 +209,11 @@ const object = {
                 }
                 else {
                     this.contacts[i].visible=false;
-
                 }
-                
             }
+        },
+        deleteMessage(index, posizioneOggetto) {
+            this.contacts[posizioneOggetto].messages.splice(index, 1);
         }
     },
     mounted() {
