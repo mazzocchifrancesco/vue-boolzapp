@@ -169,6 +169,7 @@ const object = {
                 }
             ],
             posizioneOggetto: 0,
+            lastMex: [],
 
         }
     },
@@ -214,11 +215,21 @@ const object = {
         },
         deleteMessage(index, posizioneOggetto) {
             this.contacts[posizioneOggetto].messages.splice(index, 1);
-        }
+        },
+
     },
     mounted() {
-
-    }
+        for (let i = 0; i < this.contacts.length; i++) {
+            const lunghezza=this.contacts[i].messages.length-1;
+            this.contacts[i].indexLastMex=lunghezza;
+            console.log(this.contacts[i].indexLastMex);
+            
+            this.lastMex.push(this.contacts[i].messages[lunghezza].message);
+            console.log(this.lastMex);
+        }
+        
+    },
+ 
 };
 
 createApp(object).mount('#app')

@@ -42,7 +42,7 @@
                             <p>{{contacts[posizioneOggetto].name}}</p>
                             <p>ultimo messaggio inviato</p>
                         </div>
-                        <p class="data p-2">{{contacts[posizioneOggetto].messages[1].date}}</p>
+                        <p class="data p-2">{{}}</p>
                     </div>
                 </div>
 
@@ -85,13 +85,11 @@
                                 <img :src=contacts[i].avatar alt="" class="rounded-circle contactImg">
                                 <div>
                                     <p class="fw-bold">{{contacts[i].name}}</p>
-                                    <p class="fw-light">{{contacts[i].messages[0].message}}</p>
+                                    <p>{{lastMex[i]}}</p>
                                 </div>
-                                <p class="data p-2">{{contacts[i].messages[1].date}}</p>
+                                <p class="data p-2">{{}}</p>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
 
@@ -121,7 +119,7 @@
                         <div class="iconBox"><i class="fa-xl fa-regular fa-face-smile"></i></div>
 
                         <div class="form-floating w-100">
-                            <input @keyup.enter="newMessage(posizioneOggetto)" type="email" class="form-control"
+                            <input @keyup.enter="newMessage(posizioneOggetto)" type="text" class="form-control"
                                 id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Scrivi un messaggio</label>
                         </div>
