@@ -32,7 +32,7 @@
                     <!-- prifile pic + name -->
                     <div class="d-flex h-100 align-items-center">
                         <img src="img/avatar_io.jpg" alt="" class="rounded-circle contactImg">
-                        <div class="fw-semibold">Sofia</div>
+                        <div class="fw-medium">Sofia</div>
 
 
                     </div>
@@ -50,8 +50,8 @@
                         <img :src=contacts[posizioneOggetto].avatar alt="" class="rounded-circle contactImg">
                         <!-- selected contact -->
                         <div>
-                            <p>{{contacts[posizioneOggetto].name}}</p>
-                            <p class="fw-light">ultimo accesso il {{lastDay[posizioneOggetto]}} alle {{lastData[posizioneOggetto]}} </p>
+                            <p class="fw-medium">{{contacts[posizioneOggetto].name}}</p>
+                            <p class="subText">ultimo accesso il {{lastDay[posizioneOggetto]}} alle {{lastData[posizioneOggetto]}} </p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-3 headerIcon">
@@ -67,25 +67,25 @@
             <div id="mainRow" class="row">
 
                 <!----------------- sezione laterale contatti ------------->
-                <div id="side" class="col-4">
+                <div id="side" class="col-4 h-100 p-0 bg-white">
 
                     <!-- disable notification -->
                     <div id="silentNotif" class="d-flex">
-                        <div id="silentIcon" class="rounded-circle align-items-center justify-content-center d-flex">
+                        <div id="silentIcon" class="rounded-circle bg-white align-items-center justify-content-center d-flex">
                             <i class="fa-solid fa-bell-slash"></i>
                         </div>
                         <div class="ms-3">
-                            <p class="fw-bold">Ricevi notifiche di nuovi messaggi</p>
+                            <p class="fw-medium">Ricevi notifiche di nuovi messaggi</p>
                             <a href="" class="fw-light text-black">attiva notifiche desktop</a>
                         </div>
                     </div>
 
                     <!-- searchbar -->
                     <div id="searchBar" class="input-group">
-                        <span id="inputGroupText" class="input-group-text"><i
+                        <span id="inputGroupText" class="input-group-text rounded-0"><i
                                 class="fa-solid fa-magnifying-glass"></i></span>
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInputGroup1"
+                            <input type="text" class="form-control rounded-0" id="floatingInputGroup1"
                                 placeholder="Cerca o inizia una nuova chat" @input="searchChat()">
                             <label for="floatingInputGroup1">Cerca o inizia una nuova chat</label>
                         </div>
@@ -102,9 +102,9 @@
                                     <img :src=contacts[i].avatar alt="" class="rounded-circle contactImg">
                                     <div>
                                         <!-- nome contatto -->
-                                        <p class="fw-bold">{{contacts[i].name}}</p>
+                                        <p class="fw-medium">{{contacts[i].name}}</p>
                                         <!-- ultimo messaggio -->
-                                        <p v-if="emptyChat[i]" class="fw-light">{{lastMex[i]}}</p>
+                                        <p v-if="emptyChat[i]" class="subText">{{lastMex[i]}}</p>
                                     </div>
                                     <!-- data ultimo messaggio w/ container -->
                                 </div>
@@ -115,7 +115,7 @@
                 </div>
 
                 <!--------------------------------- main section ------------------------------->
-                <div id="main" class="col-8 d-flex flex-column justify-content-between">
+                <div id="main" class="col-8 d-flex flex-column justify-content-between h-100 p-0">
                     <!-- container chat -->
                     <div id="chatBox" class="d-flex flex-column gap-3 overflow-auto">
                         <!-- chat singole -->
@@ -135,7 +135,7 @@
                                 
                                 <!-- DROPDOWN -->
                                 <div class="dropdown">
-                                    <button id="btnDrop" class="btn" type="button" data-bs-toggle="dropdown"
+                                    <button id="btnDrop" class="btn d-flex align-items-center p-0 border-0" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fa-solid fa-chevron-down fa-2xs"></i>
                                 </button>
@@ -155,7 +155,7 @@
 
                             <!-- barra messaggio -->
                             <input @keyup.enter="newMessage(posizioneOggetto), getLastMexAndData() " type="text"
-                                class="form-control" id="floatingInput" placeholder="name@example.com">
+                                class="form-control rounded-0" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Scrivi un messaggio</label>
                         </div>
 
