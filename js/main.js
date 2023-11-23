@@ -171,6 +171,7 @@ const object = {
             posizioneOggetto: 0,
             lastMex: [],
             lastData: [],
+            lastDay: [],
             emptyChat:[],
             dataCorrente:"",
             oraCorrente:""
@@ -185,9 +186,9 @@ const object = {
         newMessage(index) {
             // recupero ora corrente
             this.now();
-
+            // recupero valore input
             const text = document.getElementById("floatingInput").value;
-            console.log(text);
+            // creo oggetto messaggio
             const message = {
                 date: this.dataCorrente,
                 message: text,
@@ -196,20 +197,28 @@ const object = {
             };
 
             // controllo se l'ultimo messaggio nella chat è nullo
-            if (this.contacts[index].messages[0]=="") {
+            if (this.contacts[index].messages[0].message=="") {
                 this.contacts[index].messages.splice(0, 1,message);
             }
             else {
                 this.contacts[index].messages.push(message);
             }
 
+            // aggiorno la lista controllo dei messaggi nulli
             this.checkMex()
+
+            // pulisco l'inpt
             document.getElementById("floatingInput").value = "";
 
-            // timer
+            this.getLastMexAndData()
+
+            // timer e genero la risposta al messaggio
             setTimeout(() => {
                 this.replyMessage("ok", index);
             }, 1000);
+
+
+
         },
         replyMessage(text, index) {
             const repMessage = {
@@ -237,22 +246,20 @@ const object = {
             // controllo se quello che sto per cancellare è l'ultimo messaggio
                 if (this.contacts[posizioneOggetto].messages.length==1) {
                     // cancello e sostituisco con nulla
-                this.contacts[posizioneOggetto].messages.splice(index, 1, "");
+                const messaggioVuoto = {
+                    date: this.contacts[posizioneOggetto].messages[0].date,
+                    message: "",
+                    status: "",
+                    time: this.contacts[posizioneOggetto].messages[0].time
+                }
+                this.contacts[posizioneOggetto].messages.splice(index, 1, messaggioVuoto);
+                
 
                 }
                 // altrimenti è esattamente la funzione getlastmex...
                 else {
                 this.contacts[posizioneOggetto].messages.splice(index, 1);
 
-                    this.lastMex=[]
-                    this.lastData=[]
-
-                    for (let i = 0; i < this.contacts.length; i++) {
-                        const lastPos=this.contacts[i].messages.length-1;
-                        this.contacts[i].indexLastMex=lastPos;
-                        this.lastMex.push(this.contacts[i].messages[lastPos].message);
-                        this.lastData.push(this.contacts[i].messages[lastPos].date);
-                    }
                 };
                 this.checkMex()
             
@@ -260,18 +267,22 @@ const object = {
         getLastMexAndData() {
             this.lastMex=[]
             this.lastData=[]
+            this.lastDay=[]
+
 
             for (let i = 0; i < this.contacts.length; i++) {
                 const lastPos=this.contacts[i].messages.length-1;
                 this.contacts[i].indexLastMex=lastPos;
                 this.lastMex.push(this.contacts[i].messages[lastPos].message);
                 this.lastData.push(this.contacts[i].messages[lastPos].time);
+                this.lastDay.push(this.contacts[i].messages[lastPos].date.substr(0, 10));
+
             }
         },
         checkMex() {
             this.emptyChat=[];
             for (let i = 0; i < this.contacts.length; i++) {
-                const mex=this.contacts[i].messages[0];
+                const mex=this.contacts[i].messages[0].message;
                 let check=true;
 
                 if(mex=="") {
@@ -280,22 +291,28 @@ const object = {
 
                 this.emptyChat.push(check);
             }
-            console.log(this.emptyChat);
         },
         now() {
-        let currentDate = new Date();
+            // prendo la data di js
+        const currentDate = new Date();
+        // la scompongo
         const anno = currentDate.getFullYear();
         const mese = currentDate.getMonth()+1;
         const giorno = currentDate.getDate()
         const ore = currentDate.getHours();
         const minuti = currentDate.getMinutes();
-        currentDate=`${mese}/${giorno}/${anno} ${ore}:${minuti}`;
-        const tempDate= new Date(currentDate);
-        this.dataCorrente=tempDate;
+        // creo una stringa con la giusta formattazione della data
+        const formatDate=`${mese}/${giorno}/${anno} ${ore}:${minuti}`;
+        // la trasformo in data
+        const tempDate= new Date(formatDate);
+        // la assegno alla data e la mando in data()
+        this.dataCorrente=formatDate;
+        // ricavo l'ora dalla data formattata
         const newora=tempDate.toLocaleTimeString(undefined, {
             hour:   '2-digit',
             minute: '2-digit'
         });
+        // assegno l'ora alla giusta variabile in data()
         this.oraCorrente=newora;
         },
         changeData() {
@@ -330,7 +347,9 @@ const object = {
     mounted() {
         this.changeData()
         this.getLastMexAndData()
-        this.checkMex() 
+        this.checkMex()
+        this.now() 
+
     },
     
 };
