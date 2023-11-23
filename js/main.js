@@ -185,7 +185,7 @@ const object = {
             const text = document.getElementById("floatingInput").value;
             console.log(text);
             const message = {
-                date: '10/01/2020 15:30:55',
+                date: this.now(),
                 message: text,
                 status: 'sent'
             };
@@ -202,13 +202,13 @@ const object = {
             document.getElementById("floatingInput").value = "";
 
             // timer
-            const newTimer = setTimeout(() => {
+            setTimeout(() => {
                 this.replyMessage("ok", index);
             }, 1000);
         },
         replyMessage(text, index) {
             const repMessage = {
-                date: '10/01/2020 15:30:55',
+                date: this.now(),
                 message: text,
                 status: 'recived'
             };
@@ -276,11 +276,12 @@ const object = {
             }
             console.log(this.emptyChat);
         },
-        time() {
+        now() {
         // data oggi formattata in automatico da luxon
-        let now = luxon.DateTime.now();
-        console.log(now);
-        
+        let currentDate = new Date();
+        const ore = currentDate.getHours();
+        const minuti = currentDate.getHours();
+        return currentDate=ore+":"+minuti;
         },
         changeData() {
             this.contacts.forEach((obj) => 
@@ -319,7 +320,6 @@ const object = {
     },
     mounted() {
         this.changeData()
-        this.time()
         this.getLastMexAndData()
         this.checkMex() 
     },
