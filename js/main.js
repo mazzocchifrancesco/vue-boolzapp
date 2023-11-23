@@ -172,6 +172,8 @@ const object = {
             lastMex: [],
             lastData: [],
             emptyChat:[],
+            dataCorrente:"",
+            oraCorrente:""
             
 
         }
@@ -181,13 +183,16 @@ const object = {
             this.posizioneOggetto = index;
         },
         newMessage(index) {
+            // recupero ora corrente
+            this.now();
 
             const text = document.getElementById("floatingInput").value;
             console.log(text);
             const message = {
-                date: this.now(),
+                date: this.dataCorrente,
                 message: text,
-                status: 'sent'
+                status: 'sent',
+                time: this.oraCorrente
             };
 
             // controllo se l'ultimo messaggio nella chat è nullo
@@ -208,7 +213,7 @@ const object = {
         },
         replyMessage(text, index) {
             const repMessage = {
-                date: this.now(),
+                date: this.oraCorrente,
                 message: text,
                 status: 'recived'
             };
@@ -259,7 +264,7 @@ const object = {
                 const lastPos=this.contacts[i].messages.length-1;
                 this.contacts[i].indexLastMex=lastPos;
                 this.lastMex.push(this.contacts[i].messages[lastPos].message);
-                this.lastData.push(this.contacts[i].messages[lastPos].date);
+                this.lastData.push(this.contacts[i].messages[lastPos].time);
             }
         },
         checkMex() {
@@ -277,11 +282,20 @@ const object = {
             console.log(this.emptyChat);
         },
         now() {
-        // data oggi formattata in automatico da luxon
         let currentDate = new Date();
+        const anno = currentDate.getFullYear();
+        const mese = currentDate.getMonth()+1;
+        const giorno = currentDate.getDate()
         const ore = currentDate.getHours();
-        const minuti = currentDate.getHours();
-        return currentDate=ore+":"+minuti;
+        const minuti = currentDate.getMinutes();
+        currentDate=`${mese}/${giorno}/${anno} ${ore}:${minuti}`;
+        const tempDate= new Date(currentDate);
+        this.dataCorrente=tempDate;
+        const newora=tempDate.toLocaleTimeString(undefined, {
+            hour:   '2-digit',
+            minute: '2-digit'
+        });
+        this.oraCorrente=newora;
         },
         changeData() {
             this.contacts.forEach((obj) => 
@@ -296,7 +310,7 @@ const object = {
                 dataMex=`${mese}/${giorno}/${anno} ${ora}`;
 
                 const tempDate= new Date(dataMex);
-                // stampo ora con js vanilla
+                // stampo ora con js
 
                 const newora=tempDate.toLocaleTimeString(undefined, {
                     hour:   '2-digit',
@@ -304,13 +318,7 @@ const object = {
                 });
                 
                 // assegnazione nuova data
-                mex.date=newora;
-
-                // stampo ora con luxon NON FUNZIONA, RIPROVARE
-                const neworaLux=tempDate.toLocaleTimeString(luxon.DateTime.DATE_MED_WITH_WEEKDAY);
-
-
-
+                mex.time=newora;
         }
             )
             );
