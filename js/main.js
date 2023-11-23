@@ -213,9 +213,10 @@ const object = {
         },
         replyMessage(text, index) {
             const repMessage = {
-                date: this.oraCorrente,
+                date: this.dataCorrente,
                 message: text,
-                status: 'recived'
+                status: 'recived',
+                time: this.oraCorrente
             };
             this.contacts[index].messages.push(repMessage);
             this.getLastMexAndData();
