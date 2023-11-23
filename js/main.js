@@ -207,8 +207,12 @@ const object = {
             // pulisco l'input
             document.getElementById("floatingInput").value = "";
             // recupero la data e l'ora dell'ultimo messaggio
-            this.getLastMexAndData()
-            this.getLastDataTime()
+            this.getLastMex()
+            // calcolo la posizione dell'ultimo messaggio
+            const lastPos = this.contacts[index].messages.length - 1;
+            // sostituisco la data del nuovo messaggio per l'ultimo accesso
+            this.lastData.splice(index,1,this.contacts[index].messages[lastPos].time);
+            this.lastDay.splice(index,1,this.contacts[index].messages[lastPos].date.substr(0, 10));
             // creo timer e genero la risposta al messaggio
             setTimeout(() => {
                 this.replyMessage("ok", index);
@@ -225,8 +229,12 @@ const object = {
             // pusho messaggio di risposta
             this.contacts[index].messages.push(repMessage);
             // aggiorno data e testo ultimo messaggio
-            this.getLastMexAndData();
-            this.getLastDataTime()
+            this.getLastMex();
+            // calcolo la posizione dell'ultimo messaggio
+            const lastPos = this.contacts[index].messages.length - 1;
+            // sostituisco la data del nuovo messaggio per l'ultimo accesso
+            this.lastData.splice(index,1,this.contacts[index].messages[lastPos].time);
+            this.lastDay.splice(index,1,this.contacts[index].messages[lastPos].date.substr(0, 10));
 
         },
         searchChat() {
@@ -262,11 +270,11 @@ const object = {
                 this.contacts[posizioneOggetto].messages.splice(index, 1);
 
             };
-            this.getLastMexAndData();
+            this.getLastMex();
             this.checkMex()
 
         },
-        getLastMexAndData() {
+        getLastMex() {
             // svuoto array
             this.lastMex = []
 
@@ -359,7 +367,7 @@ const object = {
     },
     mounted() {
         this.changeData()
-        this.getLastMexAndData()
+        this.getLastMex()
         this.getLastDataTime()
         this.checkMex()
         this.now()
