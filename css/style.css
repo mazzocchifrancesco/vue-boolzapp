@@ -95,6 +95,8 @@ body {
 }
 .mexRecived {
     background-color: #ffffff;
+    align-self: start;
+
 
 }
 .mexSent {
@@ -102,7 +104,8 @@ body {
     align-self: end;
 }
 .mex {
-    width: 16rem;
+    min-width: 5rem;
+    max-width: 18rem;
 }
 #btnDrop {
     padding: 0!important;
