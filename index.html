@@ -105,7 +105,7 @@
                                         <!-- nome contatto -->
                                         <p class="fw-bold">{{contacts[i].name}}</p>
                                         <!-- ultimo messaggio -->
-                                        <p class="fw-light">{{lastMex[i]}}</p>
+                                        <p v-if="emptyChat[i]" class="fw-light">{{lastMex[i]}}</p>
                                     </div>
                                     <!-- data ultimo messaggio w/ container -->
                                 </div>
@@ -120,7 +120,11 @@
                     <!-- container chat -->
                     <div id="chatBox" class="d-flex flex-column gap-3 overflow-auto">
                         <!-- chat singole -->
-                        <div class="mex rounded d-flex align-items-center justify-content-between px-2 py-2"
+
+                        <!-- SE il primo messaggio della chat è nullo non mostrarmi la chat -->
+                        <template v-if="emptyChat[posizioneOggetto]">
+
+                            <div class="mex rounded d-flex align-items-center justify-content-between px-2 py-2"
                             :class="(contacts[posizioneOggetto].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'"
                             v-for="(element, i) in contacts[posizioneOggetto].messages">
                             <!-- messaggio -->
@@ -131,17 +135,19 @@
                                 <div class="data align-self-end">{{contacts[posizioneOggetto].messages[i].date}}</div>
                                 
                                 <!-- DROPDOWN -->
-                                <div  class="dropdown">
-                                    <button id="btnDrop" class="btn" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="dropdown">
+                                    <button id="btnDrop" class="btn" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     <i class="fa-solid fa-chevron-down fa-2xs"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#" @click="deleteMessage(i, posizioneOggetto)">Delete message</a></li>
-                                </ul>
+                                    <li><a class="dropdown-item" href="#"
+                                        @click="deleteMessage(i, posizioneOggetto)">Delete message</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        </div>
+                    </template>
                     </div>
                     <!-- input chat -->
                     <div id="inputBox" class="d-flex p-2">
@@ -149,8 +155,8 @@
                         <div class="form-floating w-100">
 
                             <!-- barra messaggio -->
-                            <input @keyup.enter="newMessage(posizioneOggetto), getLastMexAndData() " type="text" class="form-control"
-                                id="floatingInput" placeholder="name@example.com">
+                            <input @keyup.enter="newMessage(posizioneOggetto), getLastMexAndData() " type="text"
+                                class="form-control" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Scrivi un messaggio</label>
                         </div>
 
@@ -165,7 +171,9 @@
         </div>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
 </body>
 

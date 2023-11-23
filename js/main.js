@@ -171,7 +171,7 @@ const object = {
             posizioneOggetto: 0,
             lastMex: [],
             lastData: [],
-            data:''
+            emptyChat:[],
             
 
         }
@@ -181,6 +181,7 @@ const object = {
             this.posizioneOggetto = index;
         },
         newMessage(index) {
+
             const text = document.getElementById("floatingInput").value;
             console.log(text);
             const message = {
@@ -188,7 +189,16 @@ const object = {
                 message: text,
                 status: 'sent'
             };
-            this.contacts[index].messages.push(message);
+
+            // controllo se l'ultimo messaggio nella chat è nullo
+            if (this.contacts[index].messages[0]=="") {
+                this.contacts[index].messages.splice(0, 1,message);
+            }
+            else {
+                this.contacts[index].messages.push(message);
+            }
+
+            this.checkMex()
             document.getElementById("floatingInput").value = "";
 
             // timer
@@ -218,25 +228,53 @@ const object = {
             }
         },
         deleteMessage(index, posizioneOggetto) {
-            if (this.contacts[posizioneOggetto].messages.length==1) {
+            // controllo se quello che sto per cancellare è l'ultimo messaggio
+                if (this.contacts[posizioneOggetto].messages.length==1) {
+                    // cancello e sostituisco con nulla
+                this.contacts[posizioneOggetto].messages.splice(index, 1, "");
+
+                }
+                // altrimenti è esattamente la funzione getlastmex...
+                else {
                 this.contacts[posizioneOggetto].messages.splice(index, 1);
-                
-            }
-            else {
-                this.contacts[posizioneOggetto].messages.splice(index, 1);
-                this.getLastMexAndData();
-            }
+
+                    this.lastMex=[]
+                    this.lastData=[]
+
+                    for (let i = 0; i < this.contacts.length; i++) {
+                        const lastPos=this.contacts[i].messages.length-1;
+                        this.contacts[i].indexLastMex=lastPos;
+                        this.lastMex.push(this.contacts[i].messages[lastPos].message);
+                        this.lastData.push(this.contacts[i].messages[lastPos].date);
+                    }
+                };
+                this.checkMex()
+            
         },
         getLastMexAndData() {
             this.lastMex=[]
             this.lastData=[]
 
             for (let i = 0; i < this.contacts.length; i++) {
-                const lunghezza=this.contacts[i].messages.length-1;
-                this.contacts[i].indexLastMex=lunghezza;
-                this.lastMex.push(this.contacts[i].messages[lunghezza].message);
-                this.lastData.push(this.contacts[i].messages[lunghezza].date);
+                const lastPos=this.contacts[i].messages.length-1;
+                this.contacts[i].indexLastMex=lastPos;
+                this.lastMex.push(this.contacts[i].messages[lastPos].message);
+                this.lastData.push(this.contacts[i].messages[lastPos].date);
             }
+        },
+        checkMex() {
+            this.emptyChat=[];
+            for (let i = 0; i < this.contacts.length; i++) {
+                const mex=this.contacts[i].messages[0];
+                let check=true;
+
+                if(mex=="") {
+                    check=false;
+                }
+
+                this.emptyChat.push(check);
+            }
+            console.log(this.emptyChat);
         },
         time() {
         // data oggi formattata in automatico da luxon
@@ -282,7 +320,8 @@ const object = {
     mounted() {
         this.changeData()
         this.time()
-        this.getLastMexAndData() 
+        this.getLastMexAndData()
+        this.checkMex() 
     },
     
 };
