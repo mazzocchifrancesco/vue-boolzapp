@@ -27,6 +27,7 @@ body {
     height: var(--headerHeight);
     border: 0.5px solid lightgrey;
 }
+.headerIcon {color: #b1b1b1;}
 .selectedContact {
     height: 100%;
 }
@@ -104,13 +105,14 @@ body {
     width: 16rem;
 }
 
-/* input */
+/************ input *****************/
 .iconBox {
     width: 20%;
     padding: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #6b7376;
 }
 #inputBox {
     background-color: #f3eeea;

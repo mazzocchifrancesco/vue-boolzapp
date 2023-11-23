@@ -225,10 +225,7 @@ const object = {
 
             for (let i = 0; i < this.contacts.length; i++) {
                 const lunghezza=this.contacts[i].messages.length-1;
-
                 this.contacts[i].indexLastMex=lunghezza;
-                console.log(this.contacts[i].indexLastMex);
-                
                 this.lastMex.push(this.contacts[i].messages[lunghezza].message);
                 this.lastData.push(this.contacts[i].messages[lunghezza].date);
             }

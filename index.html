@@ -27,22 +27,35 @@
 
             <!-- header app -->
             <div id="headRow" class="row">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-4 d-flex align-items-center justify-content-between">
 
                     <!-- prifile pic + name -->
-                    <img src="img/avatar_io.jpg" alt="" class="rounded-circle contactImg">
-                    <div class="fw-semibold">Sofia</div>
+                    <div class="d-flex h-100 align-items-center">
+                        <img src="img/avatar_io.jpg" alt="" class="rounded-circle contactImg">
+                        <div class="fw-semibold">Sofia</div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 headerIcon">
+                        <i class="fa-solid fa-circle-notch fa-lg"></i>
+                        <i class="fa-solid fa-message fa-lg"></i>
+                        <i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
+                    </div>
                 </div>
 
                 <!-- header selected chat -->
-                <div class="col-8">
+                <div class="col-8 d-flex justify-content-between">
                     <div class="selectedContact d-flex align-items-center">
+                        <!-- selected pic -->
                         <img :src=contacts[posizioneOggetto].avatar alt="" class="rounded-circle contactImg">
+                        <!-- selected contact -->
                         <div>
                             <p>{{contacts[posizioneOggetto].name}}</p>
-                            <p class="fw-light">{{lastMex[posizioneOggetto]}}</p>
+                            <p class="fw-light data">ultimo accesso ___ alle {{lastData[posizioneOggetto]}} </p>
                         </div>
-                        <p class="data p-2">{{lastData[posizioneOggetto]}}</p>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 headerIcon">
+                        <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                        <i class="fa-solid fa-paperclip fa-lg"></i>
+                        <i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
                     </div>
                 </div>
 
@@ -78,29 +91,39 @@
 
                     <!-- SIDE chat container -->
                     <div id="chatContainer" class="overflow-auto">
-
+                        <!-- seleziona il contatto da mostrare nel main al click -->
                         <div @click="switchContact(i)" v-for="(element, i) in contacts">
-                            <div v-if="contacts[i].visible" class="contact d-flex"
+                            <div v-if="contacts[i].visible" class="contact d-flex justify-content-between"
                                 :class="(posizioneOggetto==i) ? 'selected' : ''">
-                                <img :src=contacts[i].avatar alt="" class="rounded-circle contactImg">
-                                <div>
-                                    <p class="fw-bold">{{contacts[i].name}}</p>
-                                    <p class="fw-light">{{lastMex[i]}}</p>
+                                <div class="d-flex">
+                                    <!-- pro pic -->
+                                    <img :src=contacts[i].avatar alt="" class="rounded-circle contactImg">
+                                    <div>
+                                        <!-- nome contatto -->
+                                        <p class="fw-bold">{{contacts[i].name}}</p>
+                                        <!-- ultimo messaggio -->
+                                        <p class="fw-light">{{lastMex[i]}}</p>
+                                    </div>
+                                    <!-- data ultimo messaggio w/ container -->
                                 </div>
-                                <p class="data p-2">{{lastData[i]}}</p>
+                                <p class="data p-2 align-self-start">{{lastData[i]}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- main section -->
+                <!--------------------------------- main section ------------------------------->
                 <div id="main" class="col-8 d-flex flex-column justify-content-between">
+                    <!-- container chat -->
                     <div id="chatBox" class="d-flex flex-column gap-3 overflow-auto">
+                        <!-- chat singole -->
                         <div class="mex rounded d-flex align-items-center justify-content-between px-2 py-2"
                             :class="(contacts[posizioneOggetto].messages[i].status=='sent') ? 'mexSent' : 'mexRecived'"
                             v-for="(element, i) in contacts[posizioneOggetto].messages">
+                            <!-- messaggio -->
                             <p>{{contacts[posizioneOggetto].messages[i].message}}</p>
-                            <div class="data">{{contacts[posizioneOggetto].messages[i].date}}</div>
+                            <!-- data -->
+                            <div class="data align-self-end">{{contacts[posizioneOggetto].messages[i].date}}</div>
 
                             <!-- DROPDOWN -->
                             <div class="dropdown">
@@ -117,8 +140,9 @@
                     <!-- input chat -->
                     <div id="inputBox" class="d-flex p-2">
                         <div class="iconBox"><i class="fa-xl fa-regular fa-face-smile"></i></div>
-
                         <div class="form-floating w-100">
+
+                            <!-- barra messaggio -->
                             <input @keyup.enter="newMessage(posizioneOggetto), getLastMexAndData() " type="text" class="form-control"
                                 id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Scrivi un messaggio</label>
