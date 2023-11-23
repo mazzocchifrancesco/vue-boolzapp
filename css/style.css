@@ -27,7 +27,7 @@ body {
     height: var(--headerHeight);
     border: 0.5px solid lightgrey;
 }
-.headerIcon {color: #b1b1b1;}
+.headerIcon > a {color: #b1b1b1;}
 .selectedContact {
     height: 100%;
 }
@@ -104,6 +104,13 @@ body {
 .mex {
     width: 16rem;
 }
+#btnDrop {
+    padding: 0!important;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    border: 0;
+}
 
 /************ input *****************/
 .iconBox {
@@ -112,8 +119,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #6b7376;
 }
+.iconBox > a {    color: #6b7376;}
 #inputBox {
     background-color: #f3eeea;
 }

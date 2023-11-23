@@ -171,7 +171,8 @@ const object = {
             posizioneOggetto: 0,
             lastMex: [],
             lastData: [],
-
+            data:''
+            
 
         }
     },
@@ -217,7 +218,14 @@ const object = {
             }
         },
         deleteMessage(index, posizioneOggetto) {
-            this.contacts[posizioneOggetto].messages.splice(index, 1);
+            if (this.contacts[posizioneOggetto].messages.length==1) {
+                this.contacts[posizioneOggetto].messages.splice(index, 1);
+                
+            }
+            else {
+                this.contacts[posizioneOggetto].messages.splice(index, 1);
+                this.getLastMexAndData();
+            }
         },
         getLastMexAndData() {
             this.lastMex=[]
@@ -229,13 +237,54 @@ const object = {
                 this.lastMex.push(this.contacts[i].messages[lunghezza].message);
                 this.lastData.push(this.contacts[i].messages[lunghezza].date);
             }
+        },
+        time() {
+        // data oggi formattata in automatico da luxon
+        let now = luxon.DateTime.now();
+        console.log(now);
+        
+        },
+        changeData() {
+            this.contacts.forEach((obj) => 
+            obj.messages.forEach((mex) => {
+
+                // TOTALMENTE INUTILE, LO SO, MA ORMAI VOLEVO FORMATTARE LA DATA GIUSTA
+
+                const giorno=mex.date.substr(0, 2);
+                const mese=mex.date.substr(3, 2);
+                const anno=mex.date.substr(6, 4);
+                const ora=mex.date.substr(11, 9);
+                dataMex=`${mese}/${giorno}/${anno} ${ora}`;
+
+                const tempDate= new Date(dataMex);
+                // stampo ora con js vanilla
+
+                const newora=tempDate.toLocaleTimeString(undefined, {
+                    hour:   '2-digit',
+                    minute: '2-digit'
+                });
+                
+                // assegnazione nuova data
+                mex.date=newora;
+
+                // stampo ora con luxon NON FUNZIONA, RIPROVARE
+                const neworaLux=tempDate.toLocaleTimeString(luxon.DateTime.DATE_MED_WITH_WEEKDAY);
+
+
+
+        }
+            )
+            );
+            
+            
         }
     },
     mounted() {
+        this.changeData()
+        this.time()
         this.getLastMexAndData() 
-        
     },
- 
+    
 };
 
 createApp(object).mount('#app')
